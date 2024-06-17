@@ -2,7 +2,7 @@
   "name": "ROS 2 Development Container",
   "privileged": true,
   "remoteUser": "robot",
-  "image": "osrf/ros:jazzy-desktop-full",
+  "image": "osrf/ros:humble-desktop-full",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:1": {
       "version": "latest",
@@ -15,7 +15,7 @@
     "ghcr.io/tadachs/devcontainer-features/cli-dev-utils:latest": {}
   },
   "workspaceFolder": "/home/ws",
-  "workspaceMount": "source=${localWorkspaceFolder}/src,target=/home/ws/src,type=bind",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/ws,type=bind",
   "customizations": {
     "vscode": {
       "extensions": [
