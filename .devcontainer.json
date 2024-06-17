@@ -33,7 +33,13 @@
   "runArgs": [
     "--net=host",
     "-e",
-    "DISPLAY=${env:DISPLAY}"
+    "DISPLAY=${env:DISPLAY}",
+    "-e",
+    "TERM=${env:TERM}",
+    "-v",
+    "${env:SSH_AUTH_SOCK}:/tmp/ssh-agent.socket",
+    "-e",
+    "SSH_AUTH_SOCK=/tmp/ssh-agent.socket"
   ],
   "mounts": [
     {
