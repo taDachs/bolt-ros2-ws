@@ -1,0 +1,59 @@
+{
+  "name": "ROS 2 Development Container",
+  "privileged": true,
+  "remoteUser": "robot",
+  "image": "osrf/ros:jazzy-desktop-full",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:1": {
+      "version": "latest",
+      "configureZshAsDefaultShell": true,
+      "username": "robot",
+      "userUid": "1000",
+      "userGid": "1000"
+    },
+    "ghcr.io/tadachs/devcontainer-features/neovim:latest": {},
+    "ghcr.io/tadachs/devcontainer-features/cli-dev-utils:latest": {}
+  },
+  "workspaceFolder": "/home/ws",
+  "workspaceMount": "source=${localWorkspaceFolder}/src,target=/home/ws/src,type=bind",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools-extension-pack",
+        "ms-python.python",
+        "eamodio.gitlens",
+        "ms-iot.vscode-ros"
+      ]
+    }
+  },
+  "containerEnv": {
+    "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+    "ROS_DOMAIN_ID": "42"
+  },
+  "runArgs": [
+    "--net=host",
+    "-e",
+    "DISPLAY=${env:DISPLAY}"
+  ],
+  "mounts": [
+    {
+      "source": "/tmp/.X11-unix",
+      "target": "/tmp/.X11-unix",
+      "type": "bind",
+      "consistency": "cached"
+    },
+    {
+      "source": "/dev/dri",
+      "target": "/dev/dri",
+      "type": "bind",
+      "consistency": "cached"
+    }
+  ],
+  "onCreateCommand": {
+    "install-stuff": "sudo apt update && sudo apt install -y stow htop python3-pip pipx && pipx install vcstool"
+  },
+  "postCreateCommand": {
+    "chown-ws": "sudo chown -R robot /home/ws/",
+    "rosdep": "sudo apt update && sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y"
+  }
+}
